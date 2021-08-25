@@ -16,14 +16,6 @@ export const getStaticPaths = async () => {
       params: { slug: item.fields.slug },
     };
   });
-  if (!items.length) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
 
   return {
     paths,
@@ -36,6 +28,14 @@ export const getStaticProps = async ({ params }) => {
     content_type: "recipe",
     "fields.slug": params.slug,
   });
+  if (!items.length) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: { recipe: items[0] },
